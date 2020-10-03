@@ -7,7 +7,7 @@
     <color name="black">#000000</color>
     <color name="light_gray">#AAA7A7</color>
     <color name="grey250">#cccccc</color>
-    <color name="grey700">#4DCCCCCC</color>
+    <color name="grey700">#14CCCCCC</color>
     <color name="primaryColor">#f26122</color>
     <color name="secondaryColor">#23537c</color>
     <color name="background">@color/white</color>

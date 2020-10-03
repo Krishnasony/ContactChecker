@@ -9,4 +9,5 @@ import com.example.contactchecker.room.dao.ContactCheckerDao
 abstract class ContactCheckerDb : RoomDatabase() {
 
     abstract val contactCheckerDao: ContactCheckerDao
+
 }

@@ -18,7 +18,7 @@ object PersistenceModule {
     @Singleton
     fun provideContactDatabase(application: Application): ContactCheckerDb {
         return Room
-            .databaseBuilder(application, ContactCheckerDb::class.java, "contact_checker.db")
+            .databaseBuilder(application, ContactCheckerDb::class.java, "contacts.db")
             .fallbackToDestructiveMigration()
             .allowMainThreadQueries()
             .build()

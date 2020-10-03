@@ -7,7 +7,7 @@ import com.example.contactchecker.R
 import com.example.contactchecker.model.ContactModel
 
 class ContactListAdapter(
-    private val mList: ArrayList<ContactModel>,
+    var mList: List<ContactModel>,
     private val listener: ContactItemClickListener
 ) : RecyclerView.Adapter<BaseViewHolder>() {
 

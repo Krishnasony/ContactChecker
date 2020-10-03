@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">ContactChecker</string>
-    <string name="add_nick_name">Add Nick Name</string>
+    <string name="add_nick_name">Add nick name</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
 </resources>

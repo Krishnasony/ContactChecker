@@ -14,7 +14,7 @@ class ContactListViewHolder(
 
     override fun bind(item: Any, itemCount: Int) {
         item as ContactModel
-        itemView.tv_name.text = item.name
+        itemView.tv_name.text = item.nickName?:item.name
         itemView.tv_phone_number.text = item.number
         setIcon(item.name?:item.number)
         itemView.setOnClickListener {

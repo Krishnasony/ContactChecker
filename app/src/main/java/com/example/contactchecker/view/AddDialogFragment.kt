@@ -2,18 +2,18 @@ package com.example.contactchecker.view
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
+import android.widget.Toast
 import com.example.contactchecker.R
 import com.example.contactchecker.model.ContactModel
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_add_dialog.*
 
 private const val INTENT_KEY_CONTACTS = "contact"
 
-class AddDialogFragment : DialogFragment() {
+class AddDialogFragment : BottomSheetDialogFragment() {
 
     private var mContact: ContactModel? = null
     private lateinit var mCallback: DialogFragmentCallback
@@ -39,11 +39,12 @@ class AddDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btn_positive.setOnClickListener {
-            mContact?.let {
-                mCallback.onSaveClick(it)
-            }
+            if (mContact!=null && et_nick_name.text.toString().isNotEmpty()){
+                mCallback.onSaveClick(mContact!!.copy(nickName = et_nick_name.text.toString().trim()))
+                dismissAllowingStateLoss()
+            } else Toast.makeText(context, "Please enter nick name", Toast.LENGTH_LONG).show()
         }
-        btn_negative.setOnClickListener { dismiss() }
+        btn_negative.setOnClickListener { dismissAllowingStateLoss() }
     }
 
     override fun onAttach(context: Context) {
@@ -51,6 +52,8 @@ class AddDialogFragment : DialogFragment() {
         if (context is DialogFragmentCallback) mCallback = context
         else throw RuntimeException("$context must implement DialogListener")
     }
+
+    override fun getTheme() = R.style.BottomSheetDialog
 
     companion object {
 

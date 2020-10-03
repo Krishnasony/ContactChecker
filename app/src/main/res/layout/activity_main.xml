@@ -2,6 +2,7 @@
 <layout>
 
     <data>
+
         <variable
             name="onFabClick"
             type="android.view.View.OnClickListener" />
@@ -10,19 +11,21 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/cl_parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         tools:context=".MainActivity">
 
-        <include layout="@layout/app_bar_home_list"/>
+        <include layout="@layout/app_bar_home_list" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingHorizontal="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/fab_add"
@@ -30,12 +33,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
+            android:onClick="@{onFabClick}"
+            android:text="@string/add_nick_name"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/colorAccent"
             app:icon="@drawable/ic_plus_24"
             app:iconGravity="start"
-            android:onClick="@{onFabClick}"
-            android:textColor="@color/white"
-            android:text="@string/add_nick_name"
-            app:backgroundTint="@color/colorAccent"
             app:iconTint="@color/white" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

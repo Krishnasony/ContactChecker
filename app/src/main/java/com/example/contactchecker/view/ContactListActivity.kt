@@ -11,9 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.Observer
 import com.example.contactchecker.R
 import com.example.contactchecker.model.ContactModel
+import com.example.contactchecker.utils.ProgressUtils
 import com.example.contactchecker.utils.Status
 import com.example.contactchecker.view.adapter.ContactListAdapter
 import com.example.contactchecker.viewmodel.ContactListViewModel
@@ -26,8 +26,8 @@ import kotlinx.android.synthetic.main.app_bar_home_list.*
 class ContactListActivity : AppCompatActivity(),
     ContactListAdapter.ContactItemClickListener, AddDialogFragment.DialogFragmentCallback {
 
-    private val mViewModel:ContactListViewModel by viewModels()
-    private lateinit var mAdapter: ContactListAdapter
+    private val mViewModel: ContactListViewModel by viewModels()
+    private var mAdapter: ContactListAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,12 +42,13 @@ class ContactListActivity : AppCompatActivity(),
             mViewModel._contacts.observe(this, {
                 when (it.status) {
                     Status.LOADING -> {
-
+                        ProgressUtils.showLoadingOverlay(this, cl_parent)
                     }
                     Status.ERROR -> {
-
+                        ProgressUtils.removeLoadingOverlay(cl_parent)
                     }
                     Status.SUCCESS -> {
+                        ProgressUtils.removeLoadingOverlay(cl_parent)
                         setRecyclerData(it.data)
                     }
                 }
@@ -55,10 +56,15 @@ class ContactListActivity : AppCompatActivity(),
         } else requestPermission()
     }
 
-    private fun setRecyclerData(data: ArrayList<ContactModel>?) {
+    private fun setRecyclerData(data: List<ContactModel>?) {
         data?.apply {
-            mAdapter = ContactListAdapter(data, this@ContactListActivity)
-            rv_list.adapter = mAdapter
+            if (mAdapter == null) {
+                mAdapter = ContactListAdapter(data, this@ContactListActivity)
+                rv_list.adapter = mAdapter
+            } else {
+                mAdapter?.mList = data
+                mAdapter?.notifyDataSetChanged()
+            }
 
         }
     }
@@ -69,13 +75,16 @@ class ContactListActivity : AppCompatActivity(),
     }
 
     override fun onContactItemClick(contactModel: ContactModel, position: Int) {
-       val fragment = AddDialogFragment.newInstance(contactModel)
-            .show(supportFragmentManager, null)
-        (fragment as DialogFragment).isCancelable = false
+        AddDialogFragment.newInstance(contactModel).apply {
+            isCancelable = false
+            show(supportFragmentManager, null)
+        }
+
     }
 
     override fun onSaveClick(contactModel: ContactModel) {
-
+        mViewModel.addContactToDataBase(contactModel)
+        getContactList()
     }
 
     private fun hasContactReadPermission(): Boolean {

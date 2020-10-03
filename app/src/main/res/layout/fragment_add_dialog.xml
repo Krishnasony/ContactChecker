@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardUseCompatPadding="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.AddDialogFragment">
 
@@ -21,25 +20,25 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:textColor="@color/black"
-            android:fontFamily="monospace"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:gravity="center"
             android:text="@string/add_nick_name"/>
 
         <EditText
-            android:id="@+id/tv_message"
-            android:background="@drawable/border_edittext"
-            android:layout_width="wrap_content"
+            android:id="@+id/et_nick_name"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginVertical="16dp"
+            android:background="@drawable/border_edittext"
+            android:paddingHorizontal="12dp"
             android:textColor="@color/black"
             android:textColorHint="@color/grey700"
             app:layout_constrainedWidth="true"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintBottom_toTopOf="@+id/btn_negative"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title"
-            tools:text="Popup description which can be of any length." />
+            app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <Button
             android:id="@+id/btn_negative"
@@ -64,7 +63,7 @@
             android:paddingVertical="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_message"
+            app:layout_constraintTop_toBottomOf="@id/et_nick_name"
             app:layout_constraintVertical_bias="1"
             android:text="@string/save" />
 
