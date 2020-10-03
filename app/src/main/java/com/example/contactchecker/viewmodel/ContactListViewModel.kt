@@ -22,7 +22,8 @@ class ContactListViewModel @ViewModelInject constructor(
     fun getContactDetails() {
         viewModelScope.launch {
             _contacts.postValue(Resource.loading(null))
-            val map = contactListRepo.getContactList().filter { it.value.number.length >= 10 }
+            val map = contactListRepo.getContactList()
+                .filter { it.value.number.isNotEmpty() && it.value.number.length >= 10 }
             if (map.entries.isNotEmpty())
                 sortArrayList(map)
             else _contacts.postValue(Resource.error("Something went wrong!", null))

@@ -9,6 +9,7 @@ import com.example.contactchecker.model.ContactModel
 import com.example.contactchecker.repo.ContactListRepo
 import com.example.contactchecker.repo.ContactRepo
 import com.example.contactchecker.utils.Resource
+import com.example.contactchecker.utils.convertedToValidNumber
 import kotlinx.coroutines.launch
 
 class ContactViewModel @ViewModelInject constructor(
@@ -33,7 +34,7 @@ class ContactViewModel @ViewModelInject constructor(
 
     fun getContactByNumber(number:String){
         viewModelScope.launch {
-            contactRepo.getContactByNumber(number).let {
+            contactRepo.getContactByNumber(number.convertedToValidNumber()).let {
                 contact.postValue(it)
             }
         }

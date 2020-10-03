@@ -8,6 +8,7 @@ import android.text.TextUtils
 import android.util.Patterns
 import com.example.contactchecker.model.ContactModel
 import com.example.contactchecker.room.dao.ContactCheckerDao
+import com.example.contactchecker.utils.convertedToValidNumber
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -80,7 +81,8 @@ class ContactListRepo @Inject constructor(
                             phone
                         )
                     ) {
-                        val contactModel = ContactModel(0, name, email, phone!!, image, null)
+                        val  formattedPhone = phone?.convertedToValidNumber()
+                        val contactModel = ContactModel(0, name, email, formattedPhone?:"", image, null)
                         if (!map.containsKey(phone)) map[phone] = contactModel
                     }
                 } while (cursor.moveToNext())
