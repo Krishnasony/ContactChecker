@@ -13,4 +13,8 @@ class ContactRepo @Inject constructor(
     override suspend fun getContactList(): List<ContactModel>? = withContext(Dispatchers.IO) {
         contactCheckerDao.getContactListWithNickName()
     }
+
+    override suspend fun getContactByNumber(number:String): ContactModel? = withContext(Dispatchers.IO) {
+        contactCheckerDao.getContactByNo(number)
+    }
 }

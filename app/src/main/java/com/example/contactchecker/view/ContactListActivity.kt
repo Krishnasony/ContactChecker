@@ -10,7 +10,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.DialogFragment
 import com.example.contactchecker.R
 import com.example.contactchecker.model.ContactModel
 import com.example.contactchecker.utils.ProgressUtils
@@ -21,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_contact_list.*
 import kotlinx.android.synthetic.main.app_bar_home_list.*
 
-
+private const val PERMISSION_REQUEST_CODE = 101
 @AndroidEntryPoint
 class ContactListActivity : AppCompatActivity(),
     ContactListAdapter.ContactItemClickListener, AddDialogFragment.DialogFragmentCallback {
@@ -122,8 +121,6 @@ class ContactListActivity : AppCompatActivity(),
     }
 
     companion object {
-
-        private const val PERMISSION_REQUEST_CODE = 101
 
         fun Context.startContactListActivity() = startActivity(
             Intent(this, ContactListActivity::class.java)

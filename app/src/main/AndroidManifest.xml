@@ -28,12 +28,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".view.ContactListActivity"
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".view.PhoneCallDialog"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Transparent.NoActionBar"
             android:noHistory="true" />
 

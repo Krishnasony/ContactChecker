@@ -20,9 +20,11 @@
         <item name="colorOnBackground">@color/onBackground</item>
     </style>
 
-    <style name="Theme.AppCompat.Transparent.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.AppCompat.Transparent.NoActionBar" parent="AppTheme.BaseTheme">
+        <item name="android:background">#00000000</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>

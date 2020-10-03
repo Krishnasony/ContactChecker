@@ -1,10 +1,11 @@
 package com.example.contactchecker.view.adapter
 
-import android.annotation.SuppressLint
-import android.os.Build
 import android.view.View
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.databinding.library.baseAdapters.BR
 import com.example.contactchecker.model.ContactModel
-import com.example.contactchecker.utils.Utils
+import com.example.contactchecker.utils.setIcon
 import kotlinx.android.synthetic.main.item_contact.view.*
 
 class ContactListViewHolder(
@@ -14,25 +15,15 @@ class ContactListViewHolder(
 
     override fun bind(item: Any, itemCount: Int) {
         item as ContactModel
-        itemView.tv_name.text = item.nickName?:item.name
-        itemView.tv_phone_number.text = item.number
-        setIcon(item.name?:item.number)
-        itemView.setOnClickListener {
-            listener.onContactItemClick(item, adapterPosition)
-        }
+        binding.setVariable(BR.contact, item)
+        binding.setVariable(BR.itemClickListener, onItemClickListener )
+        itemView.name_icon.setIcon(item.name?:item.number)
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun setIcon(name: String) {
-        val splitNameArr = name.split(" ")
-        if (splitNameArr.size>1) {
-            itemView.name_icon.text = splitNameArr[0].substring(0, 1) + splitNameArr[1].substring(0, 1)
-        }else{
-            itemView.name_icon.text = splitNameArr[0].substring(0, 1)
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            itemView.name_icon.backgroundTintList =  Utils.getMaterialColor(itemView.context)
-        }
+    private val onItemClickListener = View.OnClickListener {
+        listener.onContactItemClick(it.tag as ContactModel, adapterPosition)
     }
+
+    private val binding: ViewDataBinding = DataBindingUtil.bind(itemView)!!
 
 }

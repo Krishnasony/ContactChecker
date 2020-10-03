@@ -36,8 +36,7 @@ class ContactListRepo @Inject constructor(
                         .getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
                     val hasPhone: Int = cursor
                         .getInt(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))
-                    var image: String? = null
-                    image = cursor.getString(
+                    val image: String? = cursor.getString(
                         cursor.getColumnIndex(ContactsContract.Contacts.Photo.PHOTO_THUMBNAIL_URI)
                     )
 
@@ -51,7 +50,8 @@ class ContactListRepo @Inject constructor(
                     )
                     if (cursorEmail != null && cursorEmail.moveToFirst()) {
                         email =
-                            cursorEmail.getString(cursorEmail.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA))
+                            cursorEmail.getString(cursorEmail
+                                .getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA))
                         cursorEmail.close()
                     }
 
@@ -67,7 +67,8 @@ class ContactListRepo @Inject constructor(
                         )
                         if (cursorPhone != null && cursorPhone.moveToFirst()) {
                             phone =
-                                cursorPhone.getString(cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                                cursorPhone.getString(cursorPhone
+                                    .getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
                             cursorPhone.close()
                         }
                     }
@@ -93,7 +94,7 @@ class ContactListRepo @Inject constructor(
         contactCheckerDao.insertContactToDb(contactModel)
     }
 
-    suspend fun getContacts():List<ContactModel> = withContext(Dispatchers.IO){
+    suspend fun getContacts(): List<ContactModel> = withContext(Dispatchers.IO) {
         contactCheckerDao.getContactListWithNickName()
     }
 

@@ -6,4 +6,6 @@ interface ContactRepoI {
 
     suspend fun getContactList(): List<ContactModel>?
 
+    suspend fun getContactByNumber(number: String): ContactModel?
+
 }

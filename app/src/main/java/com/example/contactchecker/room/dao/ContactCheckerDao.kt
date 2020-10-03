@@ -13,6 +13,9 @@ interface ContactCheckerDao {
     fun insertContactToDb(contactModel: ContactModel)
 
     @Query("SELECT * FROM contact")
-    fun getContactListWithNickName():List<ContactModel>
+    fun getContactListWithNickName(): List<ContactModel>
+
+    @Query("SELECT * FROM contact WHERE number =:number")
+    fun getContactByNo(number: String): ContactModel?
 
 }

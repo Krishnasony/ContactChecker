@@ -13,18 +13,28 @@ import kotlinx.coroutines.launch
 
 class ContactViewModel @ViewModelInject constructor(
     private val contactRepo: ContactRepo
-) : ViewModel(){
+) : ViewModel() {
     private var _contacts = MutableLiveData<Resource<List<ContactModel>>>()
     val contacts: LiveData<Resource<List<ContactModel>>>
         get() = _contacts
 
-    fun fetchContacts(){
+    var contact = MutableLiveData<ContactModel?>()
+
+    fun fetchContacts() {
         viewModelScope.launch {
             _contacts.postValue(Resource.loading(null))
             contactRepo.getContactList()?.let {
                 _contacts.postValue(Resource.success(it))
-            }?:run{
+            } ?: run {
                 _contacts.postValue(Resource.error("Something went Wrong!", null))
+            }
+        }
+    }
+
+    fun getContactByNumber(number:String){
+        viewModelScope.launch {
+            contactRepo.getContactByNumber(number).let {
+                contact.postValue(it)
             }
         }
     }
